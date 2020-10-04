@@ -2,42 +2,54 @@ import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
 
 const categories = [
-  { id: 0, title: "Kingdom: Animal", subcategories: [1, 2, 3, 4] },
-  { id: 1, title: "Phylum: Chordata", subcategories: [2] },
-  { id: 2, title: "Clade: Synapsida", subcategories: [3] },
-  { id: 3, title: "Class: Mammailia", subcategories: [4] },
-  { id: 4, title: "Order: Carnivora", subcategories: [5] },
-  { id: 5, title: "Subfamily: Felinae", subcategories: [6] },
-  { id: 6, title: "Genus: Felis", subcategories: [7] },
-  { id: 7, title: "Species: Felis catus", subcategories: [] }
+  { id: 'labs', title: "Kingdom: Animal", subcategories: ['1', '2', '3', '4'] },
+  { id: '1', title: "Phylum: Chordata", subcategories: ['2'] },
+  { id: '2', title: "Clade: Synapsida", subcategories: ['3'] },
+  { id: '3', title: "Class: Mammailia", subcategories: ['4'] },
+  { id: '4', title: "Order: Carnivora", subcategories: ['5'] },
+  { id: '5', title: "Subfamily: Felinae", subcategories: ['6'] },
+  { id: '6', title: "Genus: Felis", subcategories: ['7'] },
+  { id: '7', title: "Species: Felis catus", subcategories: [] }
 ];
 
-const Category = ({ match }) => {
-  const category = categories.find(category => {
-    return parseInt(match.params.catId) === category.id;
-  });
 
+const Lab = ({match}) => {
+  return(
+    <>
+      {match.isExact && (<h1>{match.params.labName}</h1>)}
+    </>
+  )
+}
+
+const Category = ({ match }) => {
+  // const category = categories.find(category => {
+  //   return match.params.catId === category.id;
+  // });
+
+  const lab = match.url;
   return (
     <>
       {match.isExact && (
         <>
-          <h1>{category.title}</h1>
-          {category.subcategories.map(subCategoryId => {
-            return (
+          <h1>Hi</h1>
+          
+           
               <div>
-                <Link key={subCategoryId} to={`${match.url}/${subCategoryId}`}>
-                  {categories.find(cat => cat.id === subCategoryId).title}
+                <Link key={1} to={`${match.url}/lmp`}>
+                  lmp
+                </Link>
+                <br/>
+                <Link key={1} to={`${match.url}/cermat`}>
+                  cermat
                 </Link>
               </div>
-            );
-          })}
-          {category.id === 7 && (
-            <img src="https://cataas.com/cat" alt="cat" height="300" />
-          )}
+       
+          
+  
         </>
       )}
       <Switch>
-        <Route path={`${match.path}/:catId`} component={Category} />
+        <Route path={`${match.path}/:labName`} component={Lab} />
       </Switch>
     </>
   );
@@ -46,7 +58,7 @@ const Category = ({ match }) => {
 export const RoutingExample = () => {
   return (
     <Switch>
-      <Route path={`/:catId`} component={Category} />
+      <Route path={`/labs`} component={Category} />
     </Switch>
   );
 };
